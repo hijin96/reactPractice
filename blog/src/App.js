@@ -40,7 +40,7 @@ function App() {
      }}> 가나다순 정렬</button>
       <div className="list">
           <h4> {글제목[0]}<span onClick={()=>{따따봉(따봉 + 1 )}}>👍</span>{따봉}</h4> 
-          <p>2월 17일 발행</p>
+          <p>2월 17일 발행임</p>
         </div>
         <div className="list">
           <h4> {글제목[1]}</h4>
