@@ -5,6 +5,8 @@ function App() {
   let post = '강남우동맛집';
   let [글제목, 글제목변경] = useState(['남자코트 추천', '강남 우동맛집', '파이썬 독학']);
   let [따봉, 따따봉] = useState(0);
+  let [modal, setModal] = useState(false);
+  // 현재 ui 의 상태를 담아내는 자료형임.
   return (
     <div className="App">
       <div className="App-black-nav">
@@ -53,14 +55,11 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
-        <h4> {글제목[2]}</h4>
+        <h4 onClick={()=>{ setModal(!modal)
+        }}> {글제목[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
-      <div className='modal'>
-        <h4>제목 </h4>
-        <p>날짜</p>
-        <p>상세내용11</p>
-      </div>
+      { modal == true ? <Modal /> : null} 
       {/* 컴포넌트 modal 역할을 하는 컴포넌트 역할을함 
           1. function 작명(){}
           function 은 다른 함수 밖에 만들어야 함.
@@ -78,28 +77,36 @@ function App() {
         
 
         */}
-        <Modal></Modal>
-        <ModalSecond></ModalSecond>
+      
+      {/* 동적인 UI만들기 3단계
+          1. HTML , CSS 사용하여 미리 디자인 완성
+          2. UI 의 현재 상태를 STATE로 저장 -> 어떻게 하나?
+          3. STATE 에 따라 UI가 어떻게 보일지 작성
+        2. 는 let [modal, setModal] = useState(); 방식으로 미리 지정하면 됨. 
+        모달창의 경우는 보이고 안보이고의 상태기 때문에 ()안에 조건문 false로 줌.
+        let [modal, setModal] = useState(false);
+        state 가 fasle 면 안보이게 true 면 보이게 
+        if(){} 특정경우에만 코드 실행하고 싶으면 if만 if를 쓸 수 없음 때문에 삼항연산자로 사용함.
+
+        조건식 ? 참일 때 실행할 코드 : 거짓일 때 실행할 코드 1== 1 ? '맞음' : '틀림'  과 같은 식으로 
+        state가 TRUE 면 보여주고 NULL 은 아무것도 안남김. 
+        스위치와 기걔를 만들어 준당므 스위치를 건드리면  떧
+        3번째 제목을 누르면 모달창이 뜸.  
+
+        */}
+        {/*  */}
     </div>
   );
 }
-let ModalSecond =()=>{
+let Modal = () => {
   /* 이렇게 만드는 컴포넌트 */
-  return (<div className='modal'>
-  <h4>제목 </h4>
-  <p>날짜</p>
-  <p>상세내용22</p>
-</div>
-)
-}
-
-function Modal() {
   return (<div className='modal'>
     <h4>제목 </h4>
     <p>날짜</p>
-    <p>상세내용33</p>
+    <p>상세내용22</p>
   </div>
-  /*  이렇게 생성된 컴포넌트는 <Modal></Modal> 로 사용 할 수 있음. */
   )
 }
+
+
 export default App;
