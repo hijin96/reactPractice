@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 function App() {
-  let post = '강남우동맛집';
   let [글제목, 글제목변경] = useState(['남자코트 추천', '강남 우동맛집', '파이썬 독학']);
   let [따봉, 따따봉] = useState([0, 1, 2]);
   let [modal, setModal] = useState(false);
+  let [title,setTitle] = useState(0);
   // 현재 ui 의 상태를 담아내는 자료형임.
   // [1, 2, 3].map(function () { console.log(1) });
   /* map 함수 안에는 콜백 함수를 만든다.map의 괄호에 넣는것. 
@@ -78,13 +77,12 @@ function App() {
       </div> */}
       {
         글제목.map(function (a, i) {
-
           return (<div className='list' key={i}>
             {/* 생각생각생각생각
             아 만약에 자바스크립트였으면 
             i 클릭하면 i 번째 배열 +1 해주면 되는거아냐?
             */}
-            <h4>{글제목[i]}<span onClick={() => {
+            <h4 onClick={()=>{setModal(true); setTitle(i)}}>{글제목[i]}<span onClick={() => {
               let copy = [...따봉]
               copy[i] = copy[i] + 1;
               따따봉(copy);
@@ -94,11 +92,10 @@ function App() {
           )
         })
       }
-      {modal == true ? <Modal /> : null}
+
+      { modal == true ? <Modal 글제목변경={글제목변경} title={title}  글제목 ={글제목} /> : null}
       {
-        [1, 2, 3].map(function () {
-          return <div>'안녕' </div>
-        })
+       
         /* 중괄호 안에서는 map 을 통해 반복문을 쓴다.  
         why?  map 을 쓰고나면 앞에 있는 개수 길이만큼 빈배열이 생긴다.  
 
@@ -109,20 +106,35 @@ function App() {
         map 은 왼쪽 array 자료 만큼 내부코드 실행해줌. return 오른쪽에 있는걸 array 로 담아줌.
         유용한 파라미터 2 개 됨.  
         */
-
+        //props 는 문자만 가능 
       }
     </div>
   );
 }
-let Modal = () => {
+function Modal(props){
   /* 이렇게 만드는 컴포넌트 */
-  return (<div className='modal'>
-    <h4>제목 </h4>
+  return (<div className='modal' style={{background : props.color}}>
+    <h4>{props.글제목[props.title]} </h4>
     <p>날짜</p>
     <p>상세내용22</p>
+    <button onClick={()=>{props.글제목변경(['여자코트 추천', '강남 우동맛집', '파이썬 독학'])}}> 글수정  </button>
   </div>
   )
 }
 
+/* 함수 안에서 선언한 변수는 밖에서 못쓰잖아!
+ 그러면 어떻게 부모에 있는걸 자식에서 가져다 쓸 수 있을까? 
+ prosps 를 쓰면된다. 
+ 부모 컴포턴트에서 자식으론 보낼 수 있음. 
+  전송은 prosps 문법을 쓰면 됨 .
+  step 1. <자식컴포넌트 작명 ={state 이름 }>
+  <Modal 작명 ={글제목} /> 
+  function 에 파라미터 추가해줌 
+  *  컴포넌트 많아지면 props 쓰는게 귀찮아 짐. 
+     step 2. 자식 컴포넌트로 만드는 function 으로 가서 파라미터 등록 후 props. 작명
+  * ㅂ
+  
+
+ */
 
 export default App;
